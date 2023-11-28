@@ -1,0 +1,93 @@
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  addDoc,
+} from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDuKzIiS8ioDkDDBaSl43vLgcjV5KEVihM",
+  authDomain: "rt34815mundoceramica.firebaseapp.com",
+  projectId: "rt34815mundoceramica",
+  storageBucket: "rt34815mundoceramica.appspot.com",
+  messagingSenderId: "332947504724",
+  appId: "1:332947504724:web:adb7992e4bf4596bdd37c1",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+//Traer un elemento de la colección "productos".
+
+export async function getItem(id) {
+  const itemRef = doc(db, "products", id);
+  const itemSnap = await getDoc(itemRef);
+  if (itemSnap.exists()) {
+    return {
+      ...itemSnap.data(),
+      id: itemSnap.id,
+    };
+  } else {
+    console.log("Item no encontrado");
+  }
+}
+
+//Traer todos los elementos de la colección "productos".
+
+export async function getItems() {
+  const prodsCollection = collection(db, "products");
+  const prodsSnapshot = await getDocs(prodsCollection);
+  const prodsArray = prodsSnapshot.docs.map((item) => {
+    return {
+      ...item.data(),
+      id: item.id,
+    };
+  });
+  return prodsArray;
+}
+
+//Traer una categoría de la colección "productos".
+
+export async function getItemsByCategory(category) {
+  const prodsCollection = collection(db, "products");
+  const q = query(prodsCollection, where("categoria", "==", category));
+  const prodsSnapshot = await getDocs(q);
+  const prodsArray = prodsSnapshot.docs.map((item) => {
+    return {
+      ...item.data(),
+      id: item.id,
+    };
+  });
+  return prodsArray;
+}
+
+//Crear una orden de compra en coleccion "orders"
+
+export async function createOrder(order) {
+  const ordersCollection = collection(db, "orders");
+  const docRef = await addDoc(ordersCollection, order);
+  return docRef;
+}
+
+//Traer un elemento de la colección "orders", devuelve -1 si no es encontrado.
+
+export async function getOrder(orderId) {
+  const orderRef = doc(db, "orders", orderId);
+  const orderSnap = await getDoc(orderRef);
+  if (orderSnap.exists()) {
+    return {
+      ...orderSnap.data(),
+      id: orderSnap.id,
+      status: "Pendiente",
+    };
+  } else {
+    return -1;
+  }
+}
+
+export default getItems;

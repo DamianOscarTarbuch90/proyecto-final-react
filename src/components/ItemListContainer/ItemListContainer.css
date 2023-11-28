@@ -1,0 +1,31 @@
+.mainTitle {
+    justify-content: center;
+    font-weight: 400;
+    font-size: 24pt;
+    text-align: center;
+
+    opacity: 0.4;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    padding: 2em;
+    gap: 2em;
+}
+
+.box div {
+    min-width: 300px;
+    align-items: center;
+    justify-content: center;
+}
+
+.prodsBox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2em;
+    align-items: center;
+
+}

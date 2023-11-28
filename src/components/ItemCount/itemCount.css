@@ -1,0 +1,8 @@
+.custom{
+    background-color: #c7ad8a  !important;
+    color: white !important;
+}
+
+.custom:hover {
+    background-color: #ab9880  !important;
+}

@@ -1,0 +1,23 @@
+
+
+.flex-Y{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+.deleteBtn{
+    background-color: #f04c59  !important;
+    color: white !important;
+    height: 2.4em !important;
+    align-self: center;
+    width: 100%;
+}
+
+.deleteBtn:hover {
+    opacity: 1;
+}
